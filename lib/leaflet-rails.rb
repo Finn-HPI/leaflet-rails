@@ -7,6 +7,7 @@ module Leaflet
   mattr_accessor :attribution
   mattr_accessor :max_zoom
   mattr_accessor :subdomains
+  mattr_accessor :polygons
   
   module Rails
     class Engine < ::Rails::Engine

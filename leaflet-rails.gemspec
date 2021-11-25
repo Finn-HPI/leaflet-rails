@@ -5,7 +5,7 @@ require "leaflet-rails/version"
 Gem::Specification.new do |s|
   s.name        = "leaflet-rails"
   s.version     = Leaflet::Rails::VERSION
-  s.authors     = ["Akshay Joshi"]
+  s.authors     = ["Akshay Joshi", "Finn Schöllkopf"]
   s.email       = ["joshi.a@gmail.com"]
   s.license     = "BSD"
   s.homepage    = ""

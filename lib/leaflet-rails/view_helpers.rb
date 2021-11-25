@@ -9,6 +9,7 @@ module Leaflet
       options[:max_zoom] ||= Leaflet.max_zoom
       options[:subdomains] ||= Leaflet.subdomains
       options[:container_id] ||= 'map'
+      options[:polygons] ||= Leaflet.polygons
 
       tile_layer = options.delete(:tile_layer) || Leaflet.tile_layer
       attribution = options.delete(:attribution) || Leaflet.attribution
@@ -22,6 +23,7 @@ module Leaflet
       geojsons = options.delete(:geojsons)
       fitbounds = options.delete(:fitbounds)
       subdomains = options.delete(:subdomains)
+      polygons = options.delete(:polygons) || Leaflet.polygons
 
       output = []
       output << "<div id='#{container_id}'></div>" unless no_container
@@ -66,6 +68,15 @@ module Leaflet
         end
       end
 
+      if polygons
+        polygons.each do |polygon|
+          _output = "L.polygon(#{polygon[:latlngs]}"
+          _output << "," + polygon[:options].to_json if polygon[:options]
+          _output << ").addTo(map);"
+          output << _output.gsub(/\n/,'')
+        end
+      end
+
       if geojsons
         geojsons.each do |geojson|
           _output = "L.geoJSON(#{geojson[:geojson]}"
@@ -98,7 +109,6 @@ module Leaflet
         output << "#{key.to_s.camelize(:lower)}: '#{value}',"
       end
       output << "}).addTo(map);"
-
       output << "</script>"
       output.join("\n").html_safe
     end
