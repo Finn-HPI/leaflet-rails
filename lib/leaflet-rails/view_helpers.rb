@@ -42,7 +42,7 @@ module Leaflet
             output << "marker = L.marker([#{marker[:latlng][0]}, #{marker[:latlng][1]}], {icon: #{icon_settings[:name]}#{index}}).addTo(map);"
           elsif marker[:div_icon]
             icon_settings = prep_icon_settings(marker[:div_icon])
-            output << "var #{icon_settings[:name]}#{index} = L.divIcon({iconSize: #{icon_settings[:icon_size]}, iconAnchor: #{icon_settings[:icon_anchor]}, popupAnchor: #{icon_settings[:popup_anchor]}, className: '#{icon_settings[:class_name]}', html: '#{escape_javascript icon_settings[:html]}');"
+            output << "var #{icon_settings[:name]}#{index} = L.divIcon({iconSize: #{icon_settings[:icon_size]}, iconAnchor: #{icon_settings[:icon_anchor]}, popupAnchor: #{icon_settings[:popup_anchor]}, className: '#{icon_settings[:class_name]}', html: '#{escape_javascript icon_settings[:html]}'});"
             output << "marker = L.marker([#{marker[:latlng][0]}, #{marker[:latlng][1]}], {icon: #{icon_settings[:name]}#{index}}).addTo(map);"
           else
             output << "marker = L.marker([#{marker[:latlng][0]}, #{marker[:latlng][1]}]).addTo(map);"
