@@ -10,6 +10,7 @@ module Leaflet
       options[:subdomains] ||= Leaflet.subdomains
       options[:container_id] ||= 'map'
       options[:polygons] ||= Leaflet.polygons
+      options[:geojsons] ||= Leaflet.geojsons
 
       tile_layer = options.delete(:tile_layer) || Leaflet.tile_layer
       attribution = options.delete(:attribution) || Leaflet.attribution
@@ -82,19 +83,22 @@ module Leaflet
       end
 
       if geojsons
-        geojsons.each do |geojson|
-          _output = "L.geoJSON(#{geojson[:geojson]}"
-          if geojson[:options]
-            options = geojson[:options]
-            on_each_feature = options.delete(:onEachFeature)
-            if on_each_feature
-              options[:onEachFeature] = ':onEachFeature'
-            end
-            _output << "," + options.to_json.gsub('":onEachFeature"', on_each_feature)
-          end
-          _output << ").addTo(map);"
-          output << _output.gsub(/\n/,'')
-        end
+        _output = "L.geoJSON(#{geojsons}).addTo(map);"
+        output << _output.gsub(/\n/,'')
+
+        # geojsons.each do |geojson|
+        #   _output = "L.geoJSON(#{geojson[:geojson]}"
+        #   if geojson[:options]
+        #     options = geojson[:options]
+        #     on_each_feature = options.delete(:onEachFeature)
+        #     if on_each_feature
+        #       options[:onEachFeature] = ':onEachFeature'
+        #     end
+        #     _output << "," + options.to_json.gsub('":onEachFeature"', on_each_feature)
+        #   end
+        #   _output << ").addTo(map);"
+        #   output << _output.gsub(/\n/,'')
+        # end
       end
 
       if fitbounds

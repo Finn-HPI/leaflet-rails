@@ -8,6 +8,7 @@ module Leaflet
   mattr_accessor :max_zoom
   mattr_accessor :subdomains
   mattr_accessor :polygons
+  mattr_accessor :geojsons
   
   module Rails
     class Engine < ::Rails::Engine
